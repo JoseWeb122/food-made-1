@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-ivory: #f7f3ea;
+  --color-linen: #efe8da;
+  --color-sand: #e4d8c3;
+  --color-oat: #cbb99b;
+  --color-bark: #3a2e24;
+  --color-cacao: #241b15;
+  --color-clay: #a4694a;
+  --color-sage: #7d8c70;
+  --color-moss: #56624b;
+  --color-stone: #8b8073;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-bark);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+  ::selection {
+    background: var(--color-sand);
+    color: var(--color-cacao);
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 1px solid var(--color-clay);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 3.25rem;
+    padding: 0 2rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.7s var(--ease-premium),
+      color 0.7s var(--ease-premium),
+      border-color 0.7s var(--ease-premium),
+      transform 0.7s var(--ease-premium);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--color-bark);
+    color: var(--color-ivory);
+  }
+  .btn-primary:hover {
+    background: var(--color-cacao);
+  }
+  .btn-ghost {
+    border: 1px solid rgba(58, 46, 36, 0.25);
+    color: var(--color-bark);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-bark);
+    background: rgba(58, 46, 36, 0.04);
+  }
+  .btn-light {
+    background: var(--color-ivory);
+    color: var(--color-cacao);
+  }
+  .btn-light:hover {
+    background: var(--color-sand);
+  }
+  .btn-light-ghost {
+    border: 1px solid rgba(247, 243, 234, 0.3);
+    color: var(--color-ivory);
+    background: transparent;
+  }
+  .btn-light-ghost:hover {
+    border-color: var(--color-ivory);
+    background: rgba(247, 243, 234, 0.06);
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-clay);
+  }
+  .display {
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+  .glass {
+    background: rgba(247, 243, 234, 0.8);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+  }
+  .shadow-soft {
+    box-shadow:
+      0 40px 80px -40px rgba(58, 46, 36, 0.45),
+      0 2px 6px -2px rgba(58, 46, 36, 0.08);
+  }
+  .img-zoom img {
+    transition: transform 1.8s var(--ease-premium);
+  }
+  .group:hover .img-zoom img {
+    transform: scale(1.05);
+  }
+  .ribbon:hover .animate-ribbon {
+    animation-play-state: paused;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-linen) 25%, #f8f4ec 50%, var(--color-linen) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s linear infinite;
+  }
+}
+
+@keyframes ribbon {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ribbon {
+  animation: ribbon 60s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes scrollline {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-line {
+  animation: scrollline 2.6s var(--ease-premium) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-ribbon {
+    animation: none;
+  }
+}
